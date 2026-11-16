@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="PC Remote">
+<meta name="theme-color" content="#0d0f12">
+<meta name="format-detection" content="telephone=no">
+<title>PC Remote</title>
+<link rel="manifest" href="/static/manifest.json">
+<link rel="apple-touch-icon" href="/static/icon-180.png">
+<link rel="icon" href="/static/icon-180.png">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="status" id="status"><span class="dot"></span><span id="status-text">Connecting…</span></div>
+    <button class="icon-btn" id="open-settings" aria-label="Settings">
+      <svg viewBox="0 0 24 24"><path d="M12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm7.43-2.53c.04-.32.07-.64.07-.97s-.03-.66-.07-1l2.11-1.63a.5.5 0 0 0 .12-.64l-2-3.46a.5.5 0 0 0-.61-.22l-2.49 1a7.3 7.3 0 0 0-1.69-.98l-.38-2.65A.49.49 0 0 0 14 2h-4a.49.49 0 0 0-.49.42l-.38 2.65c-.61.25-1.17.58-1.69.98l-2.49-1a.5.5 0 0 0-.61.22l-2 3.46a.49.49 0 0 0 .12.64L4.57 11c-.04.34-.07.67-.07 1s.03.65.07.97l-2.11 1.66a.49.49 0 0 0-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1.01c.52.4 1.08.74 1.69.99l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65a7.3 7.3 0 0 0 1.69-.99l2.49 1.01c.22.08.49 0 .61-.22l2-3.46a.5.5 0 0 0-.12-.64l-2.11-1.66Z"/></svg>
+    </button>
+  </header>
+
+  <main>
+    <!-- TRACKPAD -->
+    <section class="tab active" id="tab-pad">
+      <div class="trackpad" data-pad>
+        <div class="pad-hint"><div>
+          <b>Move</b> 1 finger · <b>Click</b> tap<br>
+          <b>Scroll</b> 2 fingers · <b>Right‑click</b> 2‑finger tap<br>
+          <b>Drag</b> press &amp; hold, then move
+        </div></div>
+      </div>
+      <div class="pad-buttons">
+        <button class="pad-btn" data-mouse="left">Left</button>
+        <button class="pad-btn kb-btn" data-focus-kb aria-label="Keyboard">
+          <svg viewBox="0 0 24 24"><path d="M20 5H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Zm-9 3h2v2h-2V8Zm0 3h2v2h-2v-2ZM8 8h2v2H8V8Zm0 3h2v2H8v-2ZM5 11h2v2H5v-2Zm0-3h2v2H5V8Zm11 8H8v-2h8v2Zm0-3h-2v-2h2v2Zm0-3h-2V8h2v2Zm3 3h-2v-2h2v2Zm0-3h-2V8h2v2Z"/></svg>
+        </button>
+        <button class="pad-btn" data-mouse="right">Right</button>
+      </div>
+    </section>
+
+    <!-- KEYBOARD -->
+    <section class="tab" id="tab-keys">
+      <label class="kb-wrap">
+        <input id="kb-input" type="text" autocomplete="off" autocorrect="off" autocapitalize="off"
+               spellcheck="false" enterkeyhint="enter" aria-label="Type on PC">
+        <span class="kb-hint">Tap here to type on your PC</span>
+      </label>
+      <div class="mods">
+        <button class="key mod" data-mod="ctrl">Ctrl</button>
+        <button class="key mod" data-mod="alt">Alt</button>
+        <button class="key mod" data-mod="shift">Shift</button>
+        <button class="key mod" data-mod="win">Win</button>
+      </div>
+      <div class="scroll-area">
+        <div class="grid keys">
+          <button class="key" data-key="esc">Esc</button>
+          <button class="key" data-key="tab">Tab</button>
+          <button class="key" data-key="backspace" data-repeat>⌫</button>
+          <button class="key" data-key="delete" data-repeat>Del</button>
+          <button class="key" data-key="home">Home</button>
+          <button class="key" data-key="up" data-repeat>↑</button>
+          <button class="key" data-key="end">End</button>
+          <button class="key" data-key="pageup" data-repeat>PgUp</button>
+          <button class="key" data-key="left" data-repeat>←</button>
+          <button class="key" data-key="down" data-repeat>↓</button>
+          <button class="key" data-key="right" data-repeat>→</button>
+          <button class="key" data-key="pagedown" data-repeat>PgDn</button>
+          <button class="key" data-key="space">Space</button>
+          <button class="key" data-key="enter">Enter</button>
+          <button class="key" data-key="f5">F5</button>
+          <button class="key" data-key="f11">F11</button>
+        </div>
+        <h3>Shortcuts</h3>
+        <div class="grid shortcuts">
+          <button class="key" data-key="c" data-mods="ctrl">Copy</button>
+          <button class="key" data-key="v" data-mods="ctrl">Paste</button>
+          <button class="key" data-key="x" data-mods="ctrl">Cut</button>
+          <button class="key" data-key="z" data-mods="ctrl">Undo</button>
+          <button class="key" data-key="y" data-mods="ctrl">Redo</button>
+          <button class="key" data-key="a" data-mods="ctrl">Select all</button>
+          <button class="key" data-key="f" data-mods="ctrl">Find</button>
+          <button class="key" data-key="l" data-mods="ctrl">Address bar</button>
+          <button class="key" data-key="t" data-mods="ctrl">New tab</button>
+          <button class="key" data-key="w" data-mods="ctrl">Close tab</button>
+          <button class="key" data-key="t" data-mods="ctrl,shift">Reopen tab</button>
+          <button class="key" data-key="tab" data-mods="ctrl">Next tab</button>
+          <button class="key" data-key="tab" data-mods="alt">Alt+Tab</button>
+          <button class="key" data-key="f4" data-mods="alt">Close app</button>
+          <button class="key" data-key="d" data-mods="win">Desktop</button>
+          <button class="key" data-key="win">Start</button>
+          <button class="key" data-key="tab" data-mods="win">Task view</button>
+          <button class="key" data-key="esc" data-mods="ctrl,shift">Task Mgr</button>
+          <button class="key" data-key="=" data-mods="ctrl" data-repeat>Zoom +</button>
+          <button class="key" data-key="-" data-mods="ctrl" data-repeat>Zoom −</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- MEDIA -->
+    <section class="tab" id="tab-media">
+      <div class="media">
+        <div class="media-row transport">
+          <button class="mbtn" data-key="left" data-repeat aria-label="Seek back">
+            <svg viewBox="0 0 24 24"><path d="M11 18V6l-8.5 6 8.5 6Zm.5-6 8.5 6V6l-8.5 6Z"/></svg><small>Seek</small>
+          </button>
+          <button class="mbtn play" data-key="playpause" aria-label="Play or pause">
+            <svg viewBox="0 0 24 24"><path d="M3 5v14l9-7-9-7Zm11 0h3v14h-3V5Zm5 0h3v14h-3V5Z"/></svg>
+          </button>
+          <button class="mbtn" data-key="right" data-repeat aria-label="Seek forward">
+            <svg viewBox="0 0 24 24"><path d="M4 18l8.5-6L4 6v12Zm9-12v12l8.5-6L13 6Z"/></svg><small>Seek</small>
+          </button>
+        </div>
+        <div class="media-row">
+          <button class="mbtn sm" data-key="prevtrack" aria-label="Previous track">
+            <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6V6Zm3.5 6 8.5 6V6l-8.5 6Z"/></svg><small>Prev</small>
+          </button>
+          <button class="mbtn sm" data-key="space" aria-label="Space">
+            <svg viewBox="0 0 24 24"><path d="M3 10h2v4h14v-4h2v6H3v-6Z"/></svg><small>Space</small>
+          </button>
+          <button class="mbtn sm" data-key="nexttrack" aria-label="Next track">
+            <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12ZM16 6v12h2V6h-2Z"/></svg><small>Next</small>
+          </button>
+        </div>
+        <div class="media-row volume">
+          <button class="mbtn sm" data-key="volumedown" data-repeat aria-label="Volume down">
+            <svg viewBox="0 0 24 24"><path d="M5 9v6h4l5 5V4L9 9H5Zm11.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02Z"/></svg><small>Vol −</small>
+          </button>
+          <button class="mbtn sm" data-key="volumemute" aria-label="Mute">
+            <svg viewBox="0 0 24 24"><path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63Zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.8 8.8 0 0 0 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71ZM4.27 3 3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a9 9 0 0 0 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3ZM12 4 9.91 6.09 12 8.18V4Z"/></svg><small>Mute</small>
+          </button>
+          <button class="mbtn sm" data-key="volumeup" data-repeat aria-label="Volume up">
+            <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3Zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02ZM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77Z"/></svg><small>Vol +</small>
+          </button>
+        </div>
+        <div class="media-row">
+          <button class="mbtn sm" data-key="f" aria-label="Player fullscreen (F)">
+            <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3Zm-2-4h2V7h3V5H5v5Zm12 7h-3v2h5v-5h-2v3ZM14 5v2h3v3h2V5h-5Z"/></svg><small>Fullscreen</small>
+          </button>
+          <button class="mbtn sm" data-key="f11" aria-label="Window fullscreen (F11)">
+            <svg viewBox="0 0 24 24"><path d="M3 5h18v14H3V5Zm2 2v10h14V7H5Z"/></svg><small>F11</small>
+          </button>
+          <button class="mbtn sm" data-key="esc" aria-label="Escape">
+            <svg viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg><small>Esc</small>
+          </button>
+        </div>
+      </div>
+      <div class="trackpad mini" data-pad><div class="pad-hint"><div>Trackpad</div></div></div>
+    </section>
+  </main>
+
+  <nav id="tabs">
+    <button class="tab-btn active" data-tab="tab-pad">
+      <svg viewBox="0 0 24 24"><path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm0 2v10h14V5H5Zm0 12v2h6.5v-2H5Zm8.5 0v2H19v-2h-5.5Z"/></svg>Trackpad
+    </button>
+    <button class="tab-btn" data-tab="tab-keys">
+      <svg viewBox="0 0 24 24"><path d="M20 5H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Zm-9 3h2v2h-2V8Zm0 3h2v2h-2v-2ZM8 8h2v2H8V8Zm0 3h2v2H8v-2ZM5 11h2v2H5v-2Zm0-3h2v2H5V8Zm11 8H8v-2h8v2Zm0-3h-2v-2h2v2Zm0-3h-2V8h2v2Zm3 3h-2v-2h2v2Zm0-3h-2V8h2v2Z"/></svg>Keyboard
+    </button>
+    <button class="tab-btn" data-tab="tab-media">
+      <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm-2 14.5v-9l6 4.5-6 4.5Z"/></svg>Media
+    </button>
+  </nav>
+</div>
+
+<!-- Pairing -->
+<div class="overlay" id="pair" hidden>
+  <div class="card">
+    <h1>Pair with your PC</h1>
+    <p>Enter the 6‑digit PIN shown in the PC Remote window on your computer.</p>
+    <form id="pair-form">
+      <input id="pin" inputmode="numeric" pattern="[0-9 ]*" autocomplete="one-time-code" maxlength="7" placeholder="000 000">
+      <button type="submit" class="primary">Pair</button>
+    </form>
+    <p class="error" id="pair-error"></p>
+  </div>
+</div>
+
+<!-- Settings -->
+<div class="overlay" id="settings" hidden>
+  <div class="card">
+    <h1>Settings</h1>
+    <label class="row">Pointer speed <output id="sens-val"></output>
+      <input type="range" id="sens" min="0.5" max="4" step="0.1"></label>
+    <label class="row">Scroll speed <output id="scroll-val"></output>
+      <input type="range" id="scroll" min="0.5" max="4" step="0.1"></label>
+    <label class="row check"><span>Natural scrolling</span><input type="checkbox" id="natural"></label>
+    <p class="muted" id="pc-name"></p>
+    <div class="actions">
+      <button class="danger" id="unpair">Unpair this device</button>
+      <button class="primary" id="close-settings">Done</button>
+    </div>
+  </div>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
