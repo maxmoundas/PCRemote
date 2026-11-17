@@ -22,13 +22,13 @@ iPhone Safari  ──WebSocket (LAN)──▶  Python server on PC  ──SendIn
 
 ## Features
 
-- 🖱️ **Remote:** one view with the trackpad, mouse buttons, seek, arrows, fullscreen and inline typing. Tap to click, two‑finger scroll with momentum, press‑and‑hold to drag, and right/middle click.
-- ⌨️ **Keyboard:** type with the iOS keyboard, including autocorrect, dictation and emoji. Sticky Ctrl/Alt/Shift/Win keys and one‑tap shortcuts (copy/paste, Alt+Tab, Task View…).
-- ⏯️ **Media:** play/pause, next/previous track, volume, seek and fullscreen. These work with YouTube, Netflix, Spotify, VLC and others.
-- 📷 **QR‑code pairing:** scan once and the phone stays paired.
-- 🔒 **LAN only and token‑authenticated:** the server refuses connections from outside your network.
-- 📱 **Installable:** add it to your Home Screen to get a full‑screen app.
-- 🪶 **Tiny:** about 1,400 lines of code and two dependencies (`aiohttp`, `qrcode`). There's no build step.
+- **Remote:** one view with the trackpad, mouse buttons, seek, arrows, fullscreen and inline typing. Tap to click, two‑finger scroll with momentum, press‑and‑hold to drag, and right/middle click.
+- **Keyboard:** type with the iOS keyboard, including autocorrect, dictation and emoji. Sticky Ctrl/Alt/Shift/Win keys and one‑tap shortcuts (copy/paste, Alt+Tab, Task View…).
+- **Media:** play/pause, next/previous track, volume, seek and fullscreen. These work with YouTube, Netflix, Spotify, VLC and others.
+- **QR‑code pairing:** scan once and the phone stays paired.
+- **LAN only and token‑authenticated:** the server refuses connections from outside your network.
+- **Installable:** add it to your Home Screen to get a full‑screen app.
+- **Tiny:** about 1,400 lines of code and two dependencies (`aiohttp`, `qrcode`). There's no build step.
 
 ## Quick start
 
