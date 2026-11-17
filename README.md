@@ -7,7 +7,7 @@
 ![License: MIT](https://img.shields.io/badge/license-MIT-green)
 
 <p align="center">
-  <img src="docs/trackpad.png" width="200" alt="Trackpad tab">&nbsp;
+  <img src="docs/remote.png" width="200" alt="Remote tab">&nbsp;
   <img src="docs/keyboard.png" width="200" alt="Keyboard tab">&nbsp;
   <img src="docs/media.png" width="200" alt="Media tab">&nbsp;
   <img src="docs/settings.png" width="200" alt="Settings">
@@ -22,7 +22,7 @@ iPhone Safari  ──WebSocket (LAN)──▶  Python server on PC  ──SendIn
 
 ## Features
 
-- 🖱️ **Trackpad:** tap to click, two‑finger scroll with momentum, press‑and‑hold to drag, and right/middle click.
+- 🖱️ **Remote:** one view with the trackpad, mouse buttons, seek, arrows, fullscreen and inline typing. Tap to click, two‑finger scroll with momentum, press‑and‑hold to drag, and right/middle click.
 - ⌨️ **Keyboard:** type with the iOS keyboard, including autocorrect, dictation and emoji. Sticky Ctrl/Alt/Shift/Win keys and one‑tap shortcuts (copy/paste, Alt+Tab, Task View…).
 - ⏯️ **Media:** play/pause, next/previous track, volume, seek and fullscreen. These work with YouTube, Netflix, Spotify, VLC and others.
 - 📷 **QR‑code pairing:** scan once and the phone stays paired.
@@ -44,9 +44,9 @@ After that, start the server and open the page. Your phone is already paired.
 
 | Tab | What it does |
 |---|---|
-| **Trackpad** | 1 finger moves the pointer. **Tap** = left click, **2‑finger tap** = right click, **3‑finger tap** = middle click. **2‑finger swipe** scrolls with momentum, and **press & hold, then move** drags. The **Left/Right** buttons work like real mouse buttons: hold *Left* with your thumb and move with another finger to drag. The ⌨ button opens the keyboard. |
-| **Keyboard** | Tap the field and type with the iOS keyboard. Text is sent as you type, and backspace, dictation and emoji all work. **Ctrl/Alt/Shift/Win** are sticky: tap one, then type a letter or tap a key. Buttons cover navigation keys and common shortcuts. Arrow, backspace and zoom keys repeat while held. |
-| **Media** | Play/Pause, Prev/Next and Volume use the Windows media keys. **Seek** sends ←/→, which skips in YouTube, Netflix and VLC. **Fullscreen** sends `F`, the player shortcut in YouTube, Netflix and VLC. **F11** makes a browser window fullscreen. Volume buttons repeat while held. A small trackpad is included so you can click without switching tabs. |
+| **Remote** | Everything you need from the couch, in one view. 1 finger on the trackpad moves the pointer. **Tap** = left click, **2‑finger tap** = right click, **3‑finger tap** = middle click. **2‑finger swipe** scrolls with momentum, and **press & hold, then move** drags. The **Left/Right** buttons work like real mouse buttons: hold *Left* with your thumb and move with another finger to drag. Below them: **seek back/forward** (←/→), **up/down** (↑/↓), **fullscreen** (`F`) and **⌨**, which brings up the iOS keyboard right there, so you can type while you keep using the trackpad. Tap **Done** to hide it. |
+| **Keyboard** | Tap the field and type with the iOS keyboard. Text is sent as you type, and backspace, dictation and emoji all work. **Ctrl/Alt/Shift/Win** are sticky: tap one, then type a letter or tap a key. **Keys** has editing and navigation keys; **Shortcuts** has common shortcuts grouped by Edit, Browser and Windows. Arrow, backspace and zoom keys repeat while held. |
+| **Media** | Play/Pause, Prev/Next and Volume use the Windows media keys. **Seek** sends ←/→, which skips in YouTube, Netflix and VLC. **Fullscreen** sends `F`, the player shortcut in YouTube, Netflix and VLC. **F11** makes a browser window fullscreen. Volume buttons repeat while held. |
 
 **Settings** (gear icon) has pointer speed, scroll speed, natural scrolling, and *Unpair this device*.
 

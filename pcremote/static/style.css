@@ -63,7 +63,8 @@ main { flex: 1; min-height: 0; position: relative; }
   touch-action: none;
   transition: border-color .15s, box-shadow .15s;
 }
-.trackpad.mini { flex: 1 1 140px; }
+.trackpad.mini { flex: 1 1 0; min-height: 110px; }
+.trackpad.mini .pad-hint { font-size: 12px; }
 .trackpad.dragging { border-color: var(--accent); box-shadow: inset 0 0 0 2px var(--accent-soft); }
 .pad-hint {
   position: absolute; inset: 0; display: grid; place-items: center; text-align: center;
@@ -79,15 +80,27 @@ main { flex: 1; min-height: 0; position: relative; }
 }
 @keyframes ripple { from { transform: scale(.4); opacity: 1; } to { transform: scale(1.4); opacity: 0; } }
 
-.pad-buttons { flex: none; display: grid; grid-template-columns: 1fr 64px 1fr; gap: 10px; height: 64px; }
+/* ---------- remote: mouse buttons + control strip */
+.mouse-btns { flex: none; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; height: 58px; }
 .pad-btn {
   border-radius: var(--radius); background: var(--surface-2); color: var(--muted);
   font-weight: 600; display: grid; place-items: center; border: 1px solid var(--line);
 }
 .pad-btn:active, .pad-btn.down { background: var(--surface-3); color: var(--text); }
 
-/* ---------- keyboard */
-.kb-wrap { flex: none; position: relative; display: block; }
+.controls { flex: none; display: grid; grid-template-columns: 1fr 56px 56px; gap: 10px; height: 56px; }
+.ctl-group {
+  display: grid; grid-template-columns: repeat(4, 1fr); overflow: hidden;
+  border-radius: var(--radius); background: var(--line); gap: 1px; border: 1px solid var(--line);
+}
+.ctl { display: grid; place-items: center; background: var(--surface-2); color: var(--text); }
+.ctl.solo { border-radius: var(--radius); border: 1px solid var(--line); }
+.ctl:active, .ctl.pressed { background: var(--surface-3); }
+body.typing .ctl[data-kb-toggle] { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* ---------- typing field (shared; moved between the Remote and Keyboard tabs) */
+.kb-slot { flex: none; }
+.kb-wrap { position: relative; display: block; flex: 1; min-width: 0; }
 .kb-hint {
   position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
   color: var(--muted); pointer-events: none; font-size: 16px;
@@ -100,33 +113,77 @@ main { flex: 1; min-height: 0; position: relative; }
   -webkit-user-select: text; user-select: text; outline: none;
 }
 #kb-input:focus { border-color: var(--accent); }
+
+/* On the Remote tab the field stays out of sight (but focusable) until you type. */
+.kb-slot.inline { display: flex; gap: 8px; }
+.kb-slot.inline #kb-input { height: 44px; }
+.done-btn {
+  flex: none; height: 44px; padding: 0 16px; border-radius: var(--radius);
+  background: var(--accent); color: #fff; font-weight: 600;
+}
+body:not(.typing) .kb-slot.inline {
+  position: absolute; top: 0; left: 0; width: 1px; height: 1px; opacity: 0; overflow: hidden; pointer-events: none;
+}
+
+/* ---------- keyboard tab */
 .mods { flex: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-.scroll-area { flex: 1; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: 6px; }
-.scroll-area h3 { margin: 16px 2px 8px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; }
+.mod {
+  height: 38px; border-radius: 19px; border: 1px solid var(--line); color: var(--muted);
+  font-size: 14px; font-weight: 600;
+}
+.mod:active, .mod.pressed { background: var(--surface-2); }
+.mod.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+.seg {
+  flex: none; display: grid; grid-template-columns: 1fr 1fr; padding: 3px; gap: 3px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 12px; margin-top: 4px;
+}
+.seg-btn { height: 32px; border-radius: 9px; font-size: 14px; font-weight: 600; color: var(--muted); }
+.seg-btn.on { background: var(--surface-3); color: var(--text); }
+
+.pane { display: none; flex-direction: column; gap: 14px; flex: none; min-height: 0; }
+#pane-shortcuts { flex: 1.3 1 0; }
+.pane.on { display: flex; }
+.scroll-area { overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: 6px; gap: 0; }
+.scroll-area h3 { margin: 6px 2px 8px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; }
+.scroll-area .grid + h3 { margin-top: 18px; }
 .grid { display: grid; gap: 8px; }
-.keys { grid-template-columns: repeat(4, 1fr); }
-.shortcuts { grid-template-columns: repeat(3, 1fr); }
+.c3 { grid-template-columns: repeat(3, 1fr); }
+.c4 { grid-template-columns: repeat(4, 1fr); }
+.span2 { grid-column: span 2; }
+.nav-keys {
+  grid-template-columns: 1fr 1fr 6px 1fr 1fr 1fr;
+  grid-template-areas: "home pgup . . up ." "end pgdn . left down right";
+}
 .key {
   height: 48px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--line);
   font-size: 14px; font-weight: 500; padding: 0 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
+.key.arrow { font-size: 18px; }
 .key:active, .key.pressed { background: var(--surface-3); }
-.key.mod.on { background: var(--accent); border-color: var(--accent); color: #fff; }
 
 /* ---------- media */
-.media { flex: none; display: flex; flex-direction: column; gap: 10px; }
-.media-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.mbtn {
-  height: 64px; border-radius: var(--radius); background: var(--surface-2); border: 1px solid var(--line);
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+.media { flex: none; display: flex; flex-direction: column; gap: 12px; }
+.transport { display: flex; align-items: center; justify-content: space-evenly; padding: 2px 0 4px; }
+.round {
+  width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--surface-2); border: 1px solid var(--line);
 }
-.mbtn small { font-size: 11px; color: var(--muted); }
-.mbtn:active, .mbtn.pressed { background: var(--surface-3); }
-.transport .mbtn { height: 84px; }
-.transport svg { width: 30px; height: 30px; }
-.mbtn.play { background: var(--accent); border-color: var(--accent); color: #fff; }
-.mbtn.play svg { width: 38px; height: 38px; }
-.mbtn.play:active, .mbtn.play.pressed { filter: brightness(1.15); }
+.round svg { width: 30px; height: 30px; }
+.round:active, .round.pressed { background: var(--surface-3); }
+.round.play { width: 104px; height: 104px; background: var(--accent); border-color: var(--accent); color: #fff; }
+.round.play svg { width: 42px; height: 42px; }
+.round.play:active, .round.play.pressed { filter: brightness(1.15); }
+.pill {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; overflow: hidden;
+  border-radius: 18px; background: var(--line); border: 1px solid var(--line);
+}
+.pill button {
+  height: 64px; background: var(--surface-2);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+}
+.pill small { font-size: 11px; color: var(--muted); }
+.pill button:active, .pill button.pressed { background: var(--surface-3); }
 
 /* ---------- nav */
 nav {
@@ -136,7 +193,9 @@ nav {
 }
 .tab-btn { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 0 2px; font-size: 11px; color: var(--muted); }
 .tab-btn.active { color: var(--accent); }
-body.kb-open nav { display: none; }
+body.kb-open nav, body.kb-open header { display: none; }
+body.kb-open .tab { padding-top: 10px; }
+body.kb-open .trackpad { min-height: 90px; }
 
 /* ---------- overlays */
 .overlay {
@@ -171,3 +230,6 @@ body.kb-open nav { display: none; }
 .row.check input { width: 22px; height: 22px; accent-color: var(--accent); }
 .muted { font-size: 13px; }
 .actions { display: flex; gap: 10px; justify-content: space-between; }
+
+/* No room for the Keyboard tab's trackpad while the iOS keyboard is up. */
+body.kb-open #tab-keys .trackpad { display: none; }

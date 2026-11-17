@@ -343,7 +343,21 @@
     }
   });
 
-  $$("[data-focus-kb]").forEach((b) => b.addEventListener("click", () => { showTab("tab-keys"); kb.focus(); }));
+  // `typing` drives the inline field on the Remote tab and the ⌨ button state.
+  kb.addEventListener("focus", () => document.body.classList.add("typing"));
+  kb.addEventListener("blur", () => document.body.classList.remove("typing"));
+
+  // ⌨ toggles the iOS keyboard without leaving the Remote tab. touchstart is
+  // cancelled so the tap doesn't blur the field; focus happens on touchend,
+  // which iOS accepts as a user gesture for showing the keyboard.
+  $$("[data-kb-toggle]").forEach((btn) => {
+    const toggle = () => { document.activeElement === kb ? kb.blur() : kb.focus(); };
+    btn.addEventListener("touchstart", (e) => { e.preventDefault(); btn.classList.add("pressed"); }, { passive: false });
+    btn.addEventListener("touchend", (e) => { e.preventDefault(); btn.classList.remove("pressed"); toggle(); }, { passive: false });
+    btn.addEventListener("touchcancel", () => btn.classList.remove("pressed"));
+    btn.addEventListener("mousedown", (e) => e.preventDefault()); // desktop: keep focus
+    btn.addEventListener("click", toggle);
+  });
 
   // Generic action buttons (keys, shortcuts, media). Fire on touch-down for
   // responsiveness, auto-repeat when held, and don't steal focus from the
@@ -375,13 +389,29 @@
   $$("[data-mod]").forEach((btn) => {
     bindAction(btn, () => setMod(btn.dataset.mod, !mods.has(btn.dataset.mod)));
   });
+  $$("[data-kb-done]").forEach((btn) => bindAction(btn, () => kb.blur()));
+
+  // Keys / Shortcuts switcher on the Keyboard tab (bindAction keeps the
+  // iOS keyboard open while switching).
+  function showPane(id) {
+    $$(".pane").forEach((p) => p.classList.toggle("on", p.id === id));
+    $$(".seg-btn").forEach((b) => b.classList.toggle("on", b.dataset.pane === id));
+    store.set("pane", id);
+  }
+  $$(".seg-btn").forEach((b) => bindAction(b, () => showPane(b.dataset.pane)));
+  const savedPane = store.get("pane", "pane-keys");
+  if (document.getElementById(savedPane)) showPane(savedPane);
 
   // ---------------------------------------------------------------- tabs
+  // One text field is shared: it moves into whichever tab has a slot for it.
+  const kbWrap = $(".kb-wrap");
   function showTab(id) {
+    kb.blur();
     $$(".tab").forEach((t) => t.classList.toggle("active", t.id === id));
     $$(".tab-btn").forEach((b) => b.classList.toggle("active", b.dataset.tab === id));
     store.set("tab", id);
-    if (id !== "tab-keys") kb.blur();
+    const slot = $(`#${id} .kb-slot`);
+    if (slot && kbWrap.parentNode !== slot) slot.prepend(kbWrap);
   }
   $$(".tab-btn").forEach((b) => b.addEventListener("click", () => showTab(b.dataset.tab)));
   const savedTab = store.get("tab", "tab-pad");
